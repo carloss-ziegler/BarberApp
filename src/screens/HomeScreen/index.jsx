@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   TextInput,
   ActivityIndicator,
+  RefreshControl,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import SearchIcon from "../../../assets/search.svg";
@@ -20,6 +21,13 @@ const HomeScreen = ({ navigation }) => {
   const [location, setLocation] = useState(null);
   const [loading, setLoading] = useState(false);
   const [list, setList] = useState([]);
+  const [refreshing, setRefreshing] = useState(false);
+
+  function onRefresh() {
+    setRefreshing(true);
+    getBarbers();
+    setRefreshing(false);
+  }
 
   useEffect(() => {
     getBarbers();
@@ -29,10 +37,18 @@ const HomeScreen = ({ navigation }) => {
     setLoading(true);
     setList([]);
 
-    let res = await Api.getBarbers();
+    let lat = null;
+    let long = null;
+
+    if (location) {
+      lat = location.latitude;
+      long = location.longitude;
+    }
+
+    let res = await Api.getBarbers(lat, long, searchInput);
     if (res.error === "") {
-      if (res.loc) {
-        setSearchInput(res.loc);
+      if (res.address) {
+        setSearchInput(res.address);
       }
 
       setList(res.data);
@@ -59,15 +75,29 @@ const HomeScreen = ({ navigation }) => {
     }
   }
 
+  function handleLocationSearch() {
+    setLocation({});
+    getBarbers();
+  }
+
   return (
     <View className="flex-1 bg-[#63c2d1]">
-      <ScrollView className="flex-1 p-5 mt-5">
+      <ScrollView
+        refreshControl={
+          <RefreshControl
+            tintColor="#fff"
+            refreshing={refreshing}
+            onRefresh={onRefresh}
+          />
+        }
+        className="flex-1 p-5 mt-5"
+      >
         <View className="flex-row justify-between items-center">
           <Text
             className="text-2xl font-bold text-white w-[250px]"
             numberOfLines={2}
           >
-            Encontre o seu Barbeiro favorito
+            Encontre o seu Barbeiro favorito!
           </Text>
           <TouchableOpacity
             className="w-7 h-7"
@@ -84,6 +114,8 @@ const HomeScreen = ({ navigation }) => {
             placeholderTextColor="#e5e5e5"
             className="flex-1 text-base text-white h-12"
             placeholder="Onde você está agora?"
+            onEndEditing={handleLocationSearch}
+            returnKeyType="done"
           />
           <TouchableOpacity onPress={handleLocationFinder} className="h-6 w-6">
             <MyLocationIcon width="28" height="28" fill="#fff" />

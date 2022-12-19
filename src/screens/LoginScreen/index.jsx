@@ -102,7 +102,9 @@ const LoginScreen = ({ navigation }) => {
         </View>
 
         <TouchableOpacity
-          onPress={() => navigation.navigate("Register")}
+          onPress={() => {
+            navigation.navigate("Register");
+          }}
           className="flex-row justify-center items-center space-x-1 mt-4 mb-5"
         >
           <Text className="text-[#fafafa] text-sm">Não possui uma conta?</Text>

@@ -15,7 +15,7 @@ import { FontAwesome } from "@expo/vector-icons";
 import BarberLogo from "../../../assets/barber.svg";
 import Api from "../../Api";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import UserContext from "../../contexts/UserContext";
+import { UserContext } from "../../contexts/UserContext";
 
 const LoginScreen = ({ navigation }) => {
   const [name, setName] = useState("");
