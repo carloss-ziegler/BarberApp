@@ -4,6 +4,7 @@ import PreloadScreen from "../screens/PreloadScreen";
 import LoginScreen from "../screens/LoginScreen";
 import RegisterScreen from "../screens/RegisterScreen";
 import MainTab from "./MainTab";
+import BarberScreen from "../screens/BarberScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -17,6 +18,7 @@ const MainStack = () => {
       <Stack.Screen name="Login" component={LoginScreen} />
       <Stack.Screen name="Register" component={RegisterScreen} />
       <Stack.Screen name="MainTab" component={MainTab} />
+      <Stack.Screen name="Barber" component={BarberScreen} />
     </Stack.Navigator>
   );
 };
