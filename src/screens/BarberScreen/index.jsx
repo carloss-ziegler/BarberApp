@@ -7,7 +7,7 @@ import {
   ActivityIndicator,
   TouchableWithoutFeedback,
 } from "react-native";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useRoute, useNavigation } from "@react-navigation/native";
 import Api from "../../Api";
 import Stars from "../../components/Stars";
@@ -31,6 +31,7 @@ const BarberScreen = () => {
   const [isFavorited, setIsFavorited] = useState(false);
   const [selectedService, setSelectedService] = useState(null);
   const [showModal, setShowModal] = useState(false);
+  const [hideComments, setHideComments] = useState(false);
 
   useEffect(() => {
     const getBarberInfo = async () => {
@@ -133,31 +134,49 @@ const BarberScreen = () => {
 
               {userInfo.testimonials && userInfo.testimonials.length > 0 && (
                 <View className="mt-5 p-5">
-                  {userInfo.testimonials?.map((item, index) => (
-                    <View key={index} className="mb-5">
-                      <View className="flex-row items-center justify-between mb-2">
-                        <View className="flex-row items-center space-x-1">
-                          <Image
-                            source={{
-                              uri: "https://img.freepik.com/fotos-gratis/cliente-fazendo-o-corte-de-cabelo-em-um-salao-de-barbearia_1303-20889.jpg?w=360",
-                            }}
-                            className="bg-gray-300 h-12 w-12 rounded-xl"
-                            resizeMode="cover"
-                          />
-                          <Text className="text-gray-600 text-sm font-semibold">
-                            {item.name}
+                  <View className="flex-row items-center justify-between pb-5">
+                    <Text className="text-gray-500 font-semibold text-lg">
+                      Comentários ({userInfo.testimonials?.length})
+                    </Text>
+
+                    <TouchableOpacity
+                      onPress={() => {
+                        setHideComments(!hideComments);
+                      }}
+                    >
+                      <Text className="text-[#268596]">Ver todos</Text>
+                    </TouchableOpacity>
+                  </View>
+
+                  {hideComments && (
+                    <>
+                      {userInfo.testimonials?.map((item, index) => (
+                        <View key={index} className="my-5">
+                          <View className="flex-row items-center justify-between mb-2">
+                            <View className="flex-row items-center space-x-1">
+                              <Image
+                                source={{
+                                  uri: "https://img.freepik.com/fotos-gratis/cliente-fazendo-o-corte-de-cabelo-em-um-salao-de-barbearia_1303-20889.jpg?w=360",
+                                }}
+                                className="bg-gray-300 h-12 w-12 rounded-xl"
+                                resizeMode="cover"
+                              />
+                              <Text className="text-gray-600 text-sm font-semibold">
+                                {item.name}
+                              </Text>
+                            </View>
+                            <Stars stars={item.rate} />
+                          </View>
+
+                          <Text className="text-gray-500 font-medium text-xs mb-3">
+                            {item.body}
                           </Text>
+
+                          <View className="h-[1px] bg-[#33333333]" />
                         </View>
-                        <Stars stars={item.rate} />
-                      </View>
-
-                      <Text className="text-gray-500 font-medium text-xs mb-3">
-                        {item.body}
-                      </Text>
-
-                      <View className="h-[1px] bg-[#33333333]" />
-                    </View>
-                  ))}
+                      ))}
+                    </>
+                  )}
                 </View>
               )}
             </View>

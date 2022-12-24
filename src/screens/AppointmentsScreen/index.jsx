@@ -1,10 +1,10 @@
 import { View, Text } from "react-native";
 import React from "react";
 
-const AppointmentsScreen = () => {
+const AppointmentsScreen = ({ navigation }) => {
   return (
     <View>
-      <Text>AppointmentsScreen</Text>
+      <Text>Appointments</Text>
     </View>
   );
 };
