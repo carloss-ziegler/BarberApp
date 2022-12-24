@@ -81,11 +81,11 @@ const HomeScreen = ({ navigation }) => {
   }
 
   return (
-    <View className="flex-1 bg-[#63c2d1]">
+    <View className="flex-1 bg-[#f5f5f5]">
       <ScrollView
         refreshControl={
           <RefreshControl
-            tintColor="#fff"
+            tintColor="#268596"
             refreshing={refreshing}
             onRefresh={onRefresh}
           />
@@ -94,7 +94,7 @@ const HomeScreen = ({ navigation }) => {
       >
         <View className="flex-row justify-between items-center">
           <Text
-            className="text-2xl font-bold text-white w-[250px]"
+            className="text-2xl font-bold text-[#268596] w-[250px]"
             numberOfLines={2}
           >
             Encontre o seu Barbeiro favorito!
@@ -103,27 +103,27 @@ const HomeScreen = ({ navigation }) => {
             className="w-7 h-7"
             onPress={() => navigation.navigate("Search")}
           >
-            <SearchIcon width="28" height="28" fill="#fff" />
+            <SearchIcon width="28" height="28" fill="#268596" />
           </TouchableOpacity>
         </View>
 
-        <View className="bg-[#4eadbe] h-14 rounded-lg mt-7 flex-row items-center px-5">
+        <View className="bg-white shadow-sm h-14 rounded-lg mt-4 flex-row items-center px-5">
           <TextInput
             value={searchInput}
             onChangeText={(text) => setSearchInput(text)}
-            placeholderTextColor="#e5e5e5"
+            placeholderTextColor="#268596"
             className="flex-1 text-base text-white h-12"
             placeholder="Onde você está agora?"
             onEndEditing={handleLocationSearch}
             returnKeyType="done"
           />
           <TouchableOpacity onPress={handleLocationFinder} className="h-6 w-6">
-            <MyLocationIcon width="28" height="28" fill="#fff" />
+            <MyLocationIcon width="28" height="28" fill="#268596" />
           </TouchableOpacity>
         </View>
 
         {loading && (
-          <ActivityIndicator className="mt-10" size="large" color="#fff" />
+          <ActivityIndicator className="mt-10" size="large" color="#268596" />
         )}
 
         <View className="my-7">

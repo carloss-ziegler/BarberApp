@@ -238,7 +238,7 @@ const BarberModal = ({ data, service, setShow, show }) => {
           </View>
 
           {selectedDay > 0 && listHours.length > 0 && (
-            <View className="bg-[#f5f5f5] py-2 px-3 rounded items-center justify-center mt-3">
+            <View className="bg-[#f5f5f5] py-2 px-3 rounded items-center justify-center mt-3 shadow-sm">
               <ScrollView horizontal showsHorizontalScrollIndicator={false}>
                 {listHours.map((item, index) => (
                   <TouchableOpacity

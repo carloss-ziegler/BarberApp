@@ -111,7 +111,7 @@ const BarberScreen = () => {
                 {userInfo.services?.map((item, index) => (
                   <View
                     key={index}
-                    className="mx-5 mt-4 flex-row items-center justify-between bg-white rounded shadow p-3"
+                    className="mx-5 mt-4 flex-row items-center justify-between bg-white rounded shadow-sm p-3"
                   >
                     <View>
                       <Text className="text-base font-medium">{item.name}</Text>
